@@ -11,7 +11,59 @@ divide it by (i.e. 0) because we've checked all places
 Lesson: make use of integer division in python and using the powers of 10 to isolate digits (in base 10)
 '''
 
-def getPower1(n):
+
+def isArmStrongNum(n):
+	'''
+	Determines whether integer n is an Armstrong number
+	:param n: a positive integer
+	:return: True if n is an Armstrong number, False otherwise
+	'''
+	dividend = n
+	totalSum = remainder = 0
+	numOfDigits = getNumOfDigits1(n)
+	while dividend > 0:
+		remainder = dividend % 10
+		totalSum += calcPowerRecur(remainder, numOfDigits)
+		dividend = dividend // 10
+	return (totalSum == n)
+
+### Helper methods, get power and number of digits ###
+
+def calcPowerRecur(n, pow):
+	'''
+
+	Recursive solution
+	:param n: integer
+	:param pow: integer to raise the number power to
+	:return: n raised to power, pow
+	'''
+	if pow == 0:
+		return 1
+	elif pow == 1:
+		return n
+	else:
+		return n * calcPowerRecur(n, pow-1)
+
+def calcPower(n, pow):
+	'''
+
+	Iterative solution
+	:param n: integer
+	:param pow: integer to raise the number power to
+	:return: n raised to power, pow
+	'''
+	if pow == 0:
+		return 1
+	elif pow == 1:
+		return n
+	else:
+		total = 1
+		while pow > 0:
+			total *= n
+			pow -= 1
+		return total
+
+def getNumOfDigits1(n):
 	'''
 
 	Return the number of places in n
@@ -28,7 +80,7 @@ def getPower1(n):
 			powerCounter += 1
 		return powerCounter
 
-def getPower2(n):
+def getNumOfDigits2(n):
 	'''
 
 	Return the number of places in n (simulate a do-while in python)
@@ -44,20 +96,7 @@ def getPower2(n):
 			break
 	return powerCounter
 
-def isArmStrongNum(n):
-	'''
-	Determines whether integer n is an Armstrong number
-	:param n: a positive integer
-	:return: True if n is an Armstrong number, False otherwise
-	'''
-	dividend = n
-	totalSum = remainder = 0
-	power = getPower1(n)
-	while dividend > 0:
-		remainder = dividend % 10
-		totalSum += remainder**power
-		dividend = dividend // 10
-	return (totalSum == n)
+
 
 
 def main():
@@ -68,5 +107,10 @@ def main():
 	print(isArmStrongNum(137)) # False
 	print(isArmStrongNum(371)) # True
 	print(isArmStrongNum(1634)) # True
+
+	print(calcPowerRecur(3, 0)) #1
+	print(calcPowerRecur(3, 1)) #3
+	print(calcPowerRecur(3, 2)) #3
+	print(calcPowerRecur(3, 3)) #27
 
 main()
