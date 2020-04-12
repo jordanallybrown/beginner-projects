@@ -10,15 +10,21 @@ Lesson: make use of integer division in python and using the powers of 10 to iso
 def isArmStrongNum(n):
 	'''
 	Determines whether integer n is an Armstrong number
+
+	Algorithm: Use the remainder of n by dividing by it's base (i.e. base 10) to isolate each digit. Multiply the
+	remainder by 3 and add it to our total sum (according to Armstrong formula). Next divide by 10 to move to the next
+	10's place in the number, and repeat until our dividend has nothing more to divide it by (i.e. 0)
+	because we've checked all places
+
 	:param n: a positive integer
 	:return: True if n is an Armstrong number, False otherwise
 	'''
 	dividend = n
 	totalSum = remainder = 0
-	while dividend > 0: # stop once our dividend has nothing more to divide it by, we've checked all places of n
-		remainder = dividend % 10 # use the remainder of n by dividing by it's base (i.e.10) to isolate each digit
+	while dividend > 0:
+		remainder = dividend % 10
 		totalSum += remainder**3
-		dividend = dividend // 10 # divide by 10 to move to next digit/10s place in number, and so on
+		dividend = dividend // 10
 	return (totalSum == n)
 
 def main():
